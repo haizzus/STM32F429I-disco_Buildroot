@@ -131,3 +131,24 @@ Saving 256 bits of creditable seed for next boot
 Welcome to Buildroot
 buildroot login:
 ```
+--------
+### To debug with openOCD 
+
+#### Make linux
+With debug symbols:
+`buildroot> make linux CONFIG_DEBUG_INFO=y`
+
+#### OpenOCD:
+`./../../host/usr/bin/openocd -f board/stm32f429discovery.cfg -c "init" -c "reset init" `
+
+#### In gdb:
+```
+gdb-multiarch vmlinux
+(gdb) target extended-remote :3333
+(gdb) monitor reset halt
+(gdb) break stm32f429_pinctrl_init
+(gdb) c
+```
+
+#### Todo
+`seergdb`!
