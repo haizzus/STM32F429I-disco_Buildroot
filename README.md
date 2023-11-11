@@ -125,3 +125,5 @@ Enter 'help' for a list of built-in commands.
 / #
 ```
 
+----
+linux patch https://github.com/Tomoms/android_kernel_oppo_msm8974/commit/11647f99b4de6bc460e106e876f72fc7af3e54a6#diff-8867b9be020f79befa6aed3a10e75d5f5785537b4f46c348c1db2cce790cf485
