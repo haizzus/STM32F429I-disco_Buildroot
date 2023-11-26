@@ -8,7 +8,11 @@ Build
 
 Let's download, extract and patch Buildroot:
 
-`$ make bootstrap`
+```
+$ git submodule update --init
+$ make bootstrap
+$ make defconfig
+```
 
 
 Then build:
