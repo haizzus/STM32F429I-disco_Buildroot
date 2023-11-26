@@ -13,7 +13,7 @@ $ git submodule update --init
 $ make bootstrap
 $ make defconfig
 ```
-
+Might need to do this `unset LD_LIBRARY_PATH` if running into issue.
 
 Then build:
 
