@@ -13,12 +13,12 @@ $ git submodule update --init
 $ make bootstrap
 $ make defconfig
 ```
+
 Might need to do this `unset LD_LIBRARY_PATH` if running into issue.
 
 Then build:
 
 `$ make build`
-
 
 Run
 ---
@@ -35,14 +35,15 @@ Changelog
 ---------
 
 * next
+
   * Buildroot 2023.05-rc3
   * GCC 11.4
   * AFBoot-STM32 0.1
   * Linux 6.1.27
   * Busybox 1.36
   * Console on USART1 (pins PA9/PA10)
-
 * 0.1
+
   * Buildroot 2016.08.1
   * GCC 4.4.1 (external)
   * U-Boot 2010.03
@@ -135,17 +136,22 @@ Saving 256 bits of creditable seed for next boot
 Welcome to Buildroot
 buildroot login:
 ```
---------
-### To debug with openOCD 
+
+---
+
+### To debug with openOCD
 
 #### Make linux
+
 With debug symbols:
 `buildroot> make linux CONFIG_DEBUG_INFO=y`
 
 #### OpenOCD:
+
 `./../../host/usr/bin/openocd -f board/stm32f429discovery.cfg -c "init" -c "reset init" `
 
 #### In gdb:
+
 ```
 gdb-multiarch vmlinux
 (gdb) target extended-remote :3333
@@ -155,4 +161,39 @@ gdb-multiarch vmlinux
 ```
 
 #### Todo
+
 `seergdb`!
+
+---
+
+### Some useful BUILDROOT commands
+
+##### Buildroot menuconfig:
+
+```
+make stm32f429_disco_xip_defconfig
+make menuconfig
+```
+
+Default configs are in `buildroot/configs`. Others can be found like `beaglebone_defconfig`
+
+##### Rebuild kernel:
+
+```
+make linux-dirclean
+make linux-rebuild
+```
+
+##### Busybox:
+```
+make busybox-menuconfig
+make busybox-dirclean
+make busybox-reinstall #  update the root filesystem with newly built busybox
+make # rebuild entrie images
+```
+
+##### binutils:
+Some packages are meant to be used on host only, this this one.
+```
+make host-binutils-rebuild
+```

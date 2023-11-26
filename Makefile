@@ -15,8 +15,20 @@ bootstrap:
 defconfig:
 	make -C $(dir_buildroot) $(board_defconfig)
 
-build:
-	make -j$(shell grep -c '^processor' /proc/cpuinfo) -C $(dir_buildroot)
+linux-prep:
+	# make tarball
+	tar -czf my-kernel.tar.gz -C linux/ --exclude=".git" .
+	rm -f $(dir_buildroot)/dl/my-kernel.tar.gz
+	rm -rf $(dir_buildroot)/dl/linux
+	mkdir -p $(dir_buildroot)/dl/
+	mv -f my-kernel.tar.gz $(dir_buildroot)/dl/
+
+linux-build:
+	make -j`nproc` linux-dirclean -C $(dir_buildroot)
+	make -j`nproc` linux-rebuild -C $(dir_buildroot)
+
+build: linux-prep
+	make -j`nproc` -C $(dir_buildroot)
 
 flash:
 	cd $(dir_buildroot) && board/stmicroelectronics/stm32f429-disco/flash.sh $(dir_output) stm32f429discovery
