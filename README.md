@@ -148,11 +148,16 @@ With debug symbols:
 
 #### OpenOCD:
 
-`./../../host/usr/bin/openocd -f board/stm32f429discovery.cfg -c "init" -c "reset init" `
+```
+cd buildroot/output/build/host-openocd-0.12.0
+./../../host/usr/bin/openocd -f board/stm32f429discovery.cfg -c "init" -c "reset init" 
+```
 
 #### In gdb:
 
 ```
+cd buildroot/output/build/linux-custom
+
 gdb-multiarch vmlinux
 (gdb) target extended-remote :3333
 (gdb) monitor reset halt
